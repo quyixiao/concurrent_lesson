@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e7f83738-60d4-4332-b6aa-2ba8c2d255d1" name="Default Changelist" comment="" />
+    <list default="true" id="e7f83738-60d4-4332-b6aa-2ba8c2d255d1" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/test/demo4_cas1/AQS.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/test/demo5_aqs/AQSDemo01.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/test/demo5_aqs/Demo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/test/demo5_aqs/Demo01.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/test/demo5_aqs/Demo02.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/test/demo5_aqs/Demo03.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/test/demo5_aqs/FightQueryDemo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/test/demo5_aqs/MyLock.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/test/demo5_aqs/RaceDemo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -19,6 +30,9 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1ZD9kwAD9NtJaQqMjvj4krGMtFs" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -28,7 +42,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/com/test/demo5_aqs" />
     <property name="nodejs_interpreter_path" value="/usr/local/bin/node" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
@@ -40,24 +54,26 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/java/com/test/demo5_aqs" />
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/src/main/java/com/test/demo3_singleton" />
       <recent name="$PROJECT_DIR$/src/main/java/com/test/demo2_sysnize" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.CAS3">
+  <component name="RunManager" selected="Application.RaceDemo">
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="WIDTH" value="400" />
       <option name="HEIGHT" value="300" />
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
       <module />
     </configuration>
-    <configuration name="CAS1" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.test.demo4_cas1.CAS1" />
+    <configuration name="Demo01" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.test.demo5_aqs.Demo01" />
       <module name="concurrent_lesson" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.test.demo4_cas1.*" />
+          <option name="PATTERN" value="com.test.demo5_aqs.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -65,13 +81,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CAS2" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.test.demo4_cas1.CAS2" />
+    <configuration name="Demo02" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.test.demo5_aqs.Demo02" />
       <module name="concurrent_lesson" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.test.demo4_cas1.*" />
+          <option name="PATTERN" value="com.test.demo5_aqs.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -79,13 +95,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CAS3" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.test.demo4_cas1.CAS3" />
+    <configuration name="Demo03" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.test.demo5_aqs.Demo03" />
       <module name="concurrent_lesson" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.test.demo4_cas1.*" />
+          <option name="PATTERN" value="com.test.demo5_aqs.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -93,13 +109,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Test3" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.test.demo4_cas1.Test3" />
+    <configuration name="FightQueryDemo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.test.demo5_aqs.FightQueryDemo" />
       <module name="concurrent_lesson" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.test.demo4_cas1.*" />
+          <option name="PATTERN" value="com.test.demo5_aqs.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -107,13 +123,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TestEnumSingleton" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.test.demo3_singleton.TestEnumSingleton" />
+    <configuration name="RaceDemo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.test.demo5_aqs.RaceDemo" />
       <module name="concurrent_lesson" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.test.demo3_singleton.*" />
+          <option name="PATTERN" value="com.test.demo5_aqs.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -154,11 +170,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.CAS3" />
-        <item itemvalue="Application.CAS2" />
-        <item itemvalue="Application.Test3" />
-        <item itemvalue="Application.CAS1" />
-        <item itemvalue="Application.TestEnumSingleton" />
+        <item itemvalue="Application.RaceDemo" />
+        <item itemvalue="Application.FightQueryDemo" />
+        <item itemvalue="Application.Demo03" />
+        <item itemvalue="Application.Demo02" />
+        <item itemvalue="Application.Demo01" />
       </list>
     </recent_temporary>
   </component>
@@ -190,6 +206,11 @@
       <workItem from="1584504284417" duration="4685000" />
       <workItem from="1584596258440" duration="8750000" />
       <workItem from="1584632233517" duration="1539000" />
+      <workItem from="1584634354020" duration="1186000" />
+      <workItem from="1584667368704" duration="647000" />
+      <workItem from="1584681750955" duration="1546000" />
+      <workItem from="1584719808622" duration="61000" />
+      <workItem from="1584759205764" duration="1714000" />
     </task>
     <servers />
   </component>
@@ -197,9 +218,10 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1398" height="189" key="GridCell.Tab.0.bottom" timestamp="1584634328414">
+    <state width="1398" height="145" key="GridCell.Tab.0.bottom" timestamp="1584761738743">
       <screen x="1920" y="180" width="1440" height="900" />
     </state>
+    <state width="1398" height="145" key="GridCell.Tab.0.bottom/1920.180.1440.900/45.0.1875.1080@1920.180.1440.900" timestamp="1584761738743" />
     <state width="1398" height="189" key="GridCell.Tab.0.bottom/1920.180.1440.900/51.0.1869.1080@1920.180.1440.900" timestamp="1584634328414" />
     <state width="1878" height="99" key="GridCell.Tab.0.bottom/37.0.1403.900/0.-1080.1920.1080/-1920.-1080.1920.1080@0.-1080.1920.1080" timestamp="1584607871173" />
     <state width="1878" height="96" key="GridCell.Tab.0.bottom/38.0.1402.900/0.-1080.1920.1080/-1920.-1080.1920.1080@0.-1080.1920.1080" timestamp="1584512816641" />
@@ -208,9 +230,10 @@
     <state width="1358" height="266" key="GridCell.Tab.0.bottom/39.0.1401.900/0.-1080.1920.1080/-1920.-1080.1920.1080@39.0.1401.900" timestamp="1584602259701" />
     <state width="1358" height="398" key="GridCell.Tab.0.bottom/40.0.1400.900/0.-1080.1920.1080/-1920.-1080.1920.1080@0.-1080.1920.1080" timestamp="1584617473433" />
     <state width="1878" height="229" key="GridCell.Tab.0.bottom/45.0.1395.900/0.-1080.1920.1080/-1920.-1080.1920.1080@0.-1080.1920.1080" timestamp="1584367191085" />
-    <state width="1398" height="189" key="GridCell.Tab.0.center" timestamp="1584634328413">
+    <state width="1398" height="145" key="GridCell.Tab.0.center" timestamp="1584761738743">
       <screen x="1920" y="180" width="1440" height="900" />
     </state>
+    <state width="1398" height="145" key="GridCell.Tab.0.center/1920.180.1440.900/45.0.1875.1080@1920.180.1440.900" timestamp="1584761738743" />
     <state width="1398" height="189" key="GridCell.Tab.0.center/1920.180.1440.900/51.0.1869.1080@1920.180.1440.900" timestamp="1584634328413" />
     <state width="1878" height="99" key="GridCell.Tab.0.center/37.0.1403.900/0.-1080.1920.1080/-1920.-1080.1920.1080@0.-1080.1920.1080" timestamp="1584607871171" />
     <state width="1878" height="96" key="GridCell.Tab.0.center/38.0.1402.900/0.-1080.1920.1080/-1920.-1080.1920.1080@0.-1080.1920.1080" timestamp="1584512816640" />
@@ -219,9 +242,10 @@
     <state width="1358" height="266" key="GridCell.Tab.0.center/39.0.1401.900/0.-1080.1920.1080/-1920.-1080.1920.1080@39.0.1401.900" timestamp="1584602259700" />
     <state width="1358" height="398" key="GridCell.Tab.0.center/40.0.1400.900/0.-1080.1920.1080/-1920.-1080.1920.1080@0.-1080.1920.1080" timestamp="1584617473432" />
     <state width="1878" height="229" key="GridCell.Tab.0.center/45.0.1395.900/0.-1080.1920.1080/-1920.-1080.1920.1080@0.-1080.1920.1080" timestamp="1584367191085" />
-    <state width="1398" height="189" key="GridCell.Tab.0.left" timestamp="1584634328412">
+    <state width="1398" height="145" key="GridCell.Tab.0.left" timestamp="1584761738742">
       <screen x="1920" y="180" width="1440" height="900" />
     </state>
+    <state width="1398" height="145" key="GridCell.Tab.0.left/1920.180.1440.900/45.0.1875.1080@1920.180.1440.900" timestamp="1584761738742" />
     <state width="1398" height="189" key="GridCell.Tab.0.left/1920.180.1440.900/51.0.1869.1080@1920.180.1440.900" timestamp="1584634328412" />
     <state width="1878" height="99" key="GridCell.Tab.0.left/37.0.1403.900/0.-1080.1920.1080/-1920.-1080.1920.1080@0.-1080.1920.1080" timestamp="1584607871171" />
     <state width="1878" height="96" key="GridCell.Tab.0.left/38.0.1402.900/0.-1080.1920.1080/-1920.-1080.1920.1080@0.-1080.1920.1080" timestamp="1584512816639" />
@@ -230,9 +254,10 @@
     <state width="1358" height="266" key="GridCell.Tab.0.left/39.0.1401.900/0.-1080.1920.1080/-1920.-1080.1920.1080@39.0.1401.900" timestamp="1584602259699" />
     <state width="1358" height="398" key="GridCell.Tab.0.left/40.0.1400.900/0.-1080.1920.1080/-1920.-1080.1920.1080@0.-1080.1920.1080" timestamp="1584617473431" />
     <state width="1878" height="229" key="GridCell.Tab.0.left/45.0.1395.900/0.-1080.1920.1080/-1920.-1080.1920.1080@0.-1080.1920.1080" timestamp="1584367191084" />
-    <state width="1398" height="189" key="GridCell.Tab.0.right" timestamp="1584634328413">
+    <state width="1398" height="145" key="GridCell.Tab.0.right" timestamp="1584761738743">
       <screen x="1920" y="180" width="1440" height="900" />
     </state>
+    <state width="1398" height="145" key="GridCell.Tab.0.right/1920.180.1440.900/45.0.1875.1080@1920.180.1440.900" timestamp="1584761738743" />
     <state width="1398" height="189" key="GridCell.Tab.0.right/1920.180.1440.900/51.0.1869.1080@1920.180.1440.900" timestamp="1584634328413" />
     <state width="1878" height="99" key="GridCell.Tab.0.right/37.0.1403.900/0.-1080.1920.1080/-1920.-1080.1920.1080@0.-1080.1920.1080" timestamp="1584607871172" />
     <state width="1878" height="96" key="GridCell.Tab.0.right/38.0.1402.900/0.-1080.1920.1080/-1920.-1080.1920.1080@0.-1080.1920.1080" timestamp="1584512816640" />
