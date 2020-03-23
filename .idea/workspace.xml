@@ -2,52 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e7f83738-60d4-4332-b6aa-2ba8c2d255d1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/test/demo6_semaphore/BlockDequeDemo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/test/demo6_semaphore/CarDemo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/test/demo6_semaphore/CollectionDemo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/test/demo6_semaphore/CollectionDemo01.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/test/demo6_semaphore/HashMapDemo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/test/demo6_semaphore/MyConcurrentHashMap.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/test/demo6_semaphore/MyThreadLocalRandom.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/test/demo6_semaphore/TestJoin.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/test/demo6_semaphore/TestJoin2.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/test/demo6_semaphore/TestJoin3.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/test/demo6_semaphore/TestJoin4.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/test/demo6_semaphore/TestJoin5.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/test/demo6_semaphore/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/test/demo6_semaphore/current/Test1.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/test/demo6_semaphore/current/Test2.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/test/demo6_semaphore/current/Test3.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/test/concurrent/ReaderAndUpdater$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/test/concurrent/ReaderAndUpdater$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/test/concurrent/ReaderAndUpdater.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/test/concurrent/ShutDowsnDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/test/concurrent/VolatileTest2$A.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/test/concurrent/VolatileTest2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/test/demo2_synchronized/SynchroDemo01.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/test/demo2_synchronized/TicketDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/test/demo3_singleton/DCL.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/test/demo3_singleton/EnumDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/test/demo3_singleton/EnumSingleton.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/test/demo3_singleton/EnumSingletonDemo$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/test/demo3_singleton/EnumSingletonDemo$EnumHolder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/test/demo3_singleton/EnumSingletonDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/test/demo3_singleton/HolderDemo$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/test/demo3_singleton/HolderDemo$Holder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/test/demo3_singleton/HolderDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/test/demo3_singleton/HoonSingleton.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/test/demo3_singleton/HoonSynSingleton.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/test/demo3_singleton/HoonSynSingletonDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/test/demo3_singleton/HungerySingleton.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/test/demo3_singleton/TestEnumSingleton$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/test/demo3_singleton/TestEnumSingleton$EnumSingleton1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/test/demo3_singleton/TestEnumSingleton.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/test/demo4_cas1/CAS1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/test/demo4_cas1/CAS2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/test/demo4_cas1/CAS3.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/test/demo4_cas1/Test3.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/utils/H.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/test/demo6_semaphore/MyConcurrentHashMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/test/demo6_semaphore/MyConcurrentHashMap.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,7 +61,7 @@
       <recent name="$PROJECT_DIR$/src/main/java/com/test/demo2_sysnize" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Test2">
+  <component name="RunManager" selected="Application.Test3">
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="WIDTH" value="400" />
       <option name="HEIGHT" value="300" />
@@ -153,13 +110,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TestJoin4" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.test.demo6_semaphore.TestJoin4" />
+    <configuration name="Test3" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.test.demo6_semaphore.current.Test3" />
       <module name="concurrent_lesson" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.test.demo6_semaphore.*" />
+          <option name="PATTERN" value="com.test.demo6_semaphore.current.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -214,11 +171,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Test3" />
         <item itemvalue="Application.Test2" />
         <item itemvalue="Application.Test1" />
         <item itemvalue="Application.MyConcurrentHashMap" />
         <item itemvalue="Application.TestJoin5" />
-        <item itemvalue="Application.TestJoin4" />
       </list>
     </recent_temporary>
   </component>
@@ -257,7 +214,7 @@
       <workItem from="1584759205764" duration="9780000" />
       <workItem from="1584848093863" duration="8042000" />
       <workItem from="1584927256935" duration="913000" />
-      <workItem from="1584928243280" duration="759000" />
+      <workItem from="1584928243280" duration="6214000" />
     </task>
     <servers />
   </component>
@@ -273,7 +230,7 @@
       <screen x="48" y="0" width="1872" height="1080" />
     </state>
     <state width="433" height="466" key="DebuggerActiveHint/1920.180.1440.900/48.0.1872.1080@48.0.1872.1080" timestamp="1584864574881" />
-    <state width="1878" height="207" key="GridCell.Tab.0.bottom" timestamp="1584928888331">
+    <state width="1878" height="75" key="GridCell.Tab.0.bottom" timestamp="1584959173027">
       <screen x="-1920" y="-1080" width="1920" height="1080" />
     </state>
     <state width="1398" height="250" key="GridCell.Tab.0.bottom/1920.180.1440.900/44.0.1876.1080@1920.180.1440.900" timestamp="1584764363010" />
@@ -286,11 +243,12 @@
     <state width="1358" height="222" key="GridCell.Tab.0.bottom/38.0.1402.900/0.-1080.1920.1080/-1920.-1080.1920.1080@38.0.1402.900" timestamp="1584604482831" />
     <state width="1358" height="96" key="GridCell.Tab.0.bottom/39.0.1401.900/0.-1080.1920.1080/-1920.-1080.1920.1080@0.-1080.1920.1080" timestamp="1584531636704" />
     <state width="1358" height="266" key="GridCell.Tab.0.bottom/39.0.1401.900/0.-1080.1920.1080/-1920.-1080.1920.1080@39.0.1401.900" timestamp="1584602259701" />
+    <state width="1878" height="75" key="GridCell.Tab.0.bottom/40.0.1400.900/0.-1080.1920.1080/-1920.-1080.1920.1080@-1920.-1080.1920.1080" timestamp="1584959173027" />
     <state width="1358" height="398" key="GridCell.Tab.0.bottom/40.0.1400.900/0.-1080.1920.1080/-1920.-1080.1920.1080@0.-1080.1920.1080" timestamp="1584617473433" />
-    <state width="1878" height="207" key="GridCell.Tab.0.bottom/45.0.1395.900/0.-1080.1920.1080/-1920.-1080.1920.1080@-1920.-1080.1920.1080" timestamp="1584928888331" />
+    <state width="1878" height="207" key="GridCell.Tab.0.bottom/45.0.1395.900/0.-1080.1920.1080/-1920.-1080.1920.1080@-1920.-1080.1920.1080" timestamp="1584934198947" />
     <state width="1878" height="229" key="GridCell.Tab.0.bottom/45.0.1395.900/0.-1080.1920.1080/-1920.-1080.1920.1080@0.-1080.1920.1080" timestamp="1584367191085" />
     <state width="1878" height="188" key="GridCell.Tab.0.bottom/47.0.1393.900/0.-1080.1920.1080/-1920.-1080.1920.1080@-1920.-1080.1920.1080" timestamp="1584928171021" />
-    <state width="1878" height="207" key="GridCell.Tab.0.center" timestamp="1584928888330">
+    <state width="1878" height="75" key="GridCell.Tab.0.center" timestamp="1584959173025">
       <screen x="-1920" y="-1080" width="1920" height="1080" />
     </state>
     <state width="1398" height="250" key="GridCell.Tab.0.center/1920.180.1440.900/44.0.1876.1080@1920.180.1440.900" timestamp="1584764363009" />
@@ -303,11 +261,12 @@
     <state width="1358" height="222" key="GridCell.Tab.0.center/38.0.1402.900/0.-1080.1920.1080/-1920.-1080.1920.1080@38.0.1402.900" timestamp="1584604482829" />
     <state width="1358" height="96" key="GridCell.Tab.0.center/39.0.1401.900/0.-1080.1920.1080/-1920.-1080.1920.1080@0.-1080.1920.1080" timestamp="1584531636703" />
     <state width="1358" height="266" key="GridCell.Tab.0.center/39.0.1401.900/0.-1080.1920.1080/-1920.-1080.1920.1080@39.0.1401.900" timestamp="1584602259700" />
+    <state width="1878" height="75" key="GridCell.Tab.0.center/40.0.1400.900/0.-1080.1920.1080/-1920.-1080.1920.1080@-1920.-1080.1920.1080" timestamp="1584959173025" />
     <state width="1358" height="398" key="GridCell.Tab.0.center/40.0.1400.900/0.-1080.1920.1080/-1920.-1080.1920.1080@0.-1080.1920.1080" timestamp="1584617473432" />
-    <state width="1878" height="207" key="GridCell.Tab.0.center/45.0.1395.900/0.-1080.1920.1080/-1920.-1080.1920.1080@-1920.-1080.1920.1080" timestamp="1584928888330" />
+    <state width="1878" height="207" key="GridCell.Tab.0.center/45.0.1395.900/0.-1080.1920.1080/-1920.-1080.1920.1080@-1920.-1080.1920.1080" timestamp="1584934198945" />
     <state width="1878" height="229" key="GridCell.Tab.0.center/45.0.1395.900/0.-1080.1920.1080/-1920.-1080.1920.1080@0.-1080.1920.1080" timestamp="1584367191085" />
     <state width="1878" height="188" key="GridCell.Tab.0.center/47.0.1393.900/0.-1080.1920.1080/-1920.-1080.1920.1080@-1920.-1080.1920.1080" timestamp="1584928171020" />
-    <state width="1878" height="207" key="GridCell.Tab.0.left" timestamp="1584928888329">
+    <state width="1878" height="75" key="GridCell.Tab.0.left" timestamp="1584959173023">
       <screen x="-1920" y="-1080" width="1920" height="1080" />
     </state>
     <state width="1398" height="250" key="GridCell.Tab.0.left/1920.180.1440.900/44.0.1876.1080@1920.180.1440.900" timestamp="1584764363009" />
@@ -320,11 +279,12 @@
     <state width="1358" height="222" key="GridCell.Tab.0.left/38.0.1402.900/0.-1080.1920.1080/-1920.-1080.1920.1080@38.0.1402.900" timestamp="1584604482829" />
     <state width="1358" height="96" key="GridCell.Tab.0.left/39.0.1401.900/0.-1080.1920.1080/-1920.-1080.1920.1080@0.-1080.1920.1080" timestamp="1584531636703" />
     <state width="1358" height="266" key="GridCell.Tab.0.left/39.0.1401.900/0.-1080.1920.1080/-1920.-1080.1920.1080@39.0.1401.900" timestamp="1584602259699" />
+    <state width="1878" height="75" key="GridCell.Tab.0.left/40.0.1400.900/0.-1080.1920.1080/-1920.-1080.1920.1080@-1920.-1080.1920.1080" timestamp="1584959173023" />
     <state width="1358" height="398" key="GridCell.Tab.0.left/40.0.1400.900/0.-1080.1920.1080/-1920.-1080.1920.1080@0.-1080.1920.1080" timestamp="1584617473431" />
-    <state width="1878" height="207" key="GridCell.Tab.0.left/45.0.1395.900/0.-1080.1920.1080/-1920.-1080.1920.1080@-1920.-1080.1920.1080" timestamp="1584928888329" />
+    <state width="1878" height="207" key="GridCell.Tab.0.left/45.0.1395.900/0.-1080.1920.1080/-1920.-1080.1920.1080@-1920.-1080.1920.1080" timestamp="1584934198944" />
     <state width="1878" height="229" key="GridCell.Tab.0.left/45.0.1395.900/0.-1080.1920.1080/-1920.-1080.1920.1080@0.-1080.1920.1080" timestamp="1584367191084" />
     <state width="1878" height="188" key="GridCell.Tab.0.left/47.0.1393.900/0.-1080.1920.1080/-1920.-1080.1920.1080@-1920.-1080.1920.1080" timestamp="1584928171020" />
-    <state width="1878" height="207" key="GridCell.Tab.0.right" timestamp="1584928888330">
+    <state width="1878" height="75" key="GridCell.Tab.0.right" timestamp="1584959173026">
       <screen x="-1920" y="-1080" width="1920" height="1080" />
     </state>
     <state width="1398" height="250" key="GridCell.Tab.0.right/1920.180.1440.900/44.0.1876.1080@1920.180.1440.900" timestamp="1584764363010" />
@@ -337,8 +297,9 @@
     <state width="1358" height="222" key="GridCell.Tab.0.right/38.0.1402.900/0.-1080.1920.1080/-1920.-1080.1920.1080@38.0.1402.900" timestamp="1584604482830" />
     <state width="1358" height="96" key="GridCell.Tab.0.right/39.0.1401.900/0.-1080.1920.1080/-1920.-1080.1920.1080@0.-1080.1920.1080" timestamp="1584531636703" />
     <state width="1358" height="266" key="GridCell.Tab.0.right/39.0.1401.900/0.-1080.1920.1080/-1920.-1080.1920.1080@39.0.1401.900" timestamp="1584602259700" />
+    <state width="1878" height="75" key="GridCell.Tab.0.right/40.0.1400.900/0.-1080.1920.1080/-1920.-1080.1920.1080@-1920.-1080.1920.1080" timestamp="1584959173025" />
     <state width="1358" height="398" key="GridCell.Tab.0.right/40.0.1400.900/0.-1080.1920.1080/-1920.-1080.1920.1080@0.-1080.1920.1080" timestamp="1584617473432" />
-    <state width="1878" height="207" key="GridCell.Tab.0.right/45.0.1395.900/0.-1080.1920.1080/-1920.-1080.1920.1080@-1920.-1080.1920.1080" timestamp="1584928888330" />
+    <state width="1878" height="207" key="GridCell.Tab.0.right/45.0.1395.900/0.-1080.1920.1080/-1920.-1080.1920.1080@-1920.-1080.1920.1080" timestamp="1584934198946" />
     <state width="1878" height="229" key="GridCell.Tab.0.right/45.0.1395.900/0.-1080.1920.1080/-1920.-1080.1920.1080@0.-1080.1920.1080" timestamp="1584367191085" />
     <state width="1878" height="188" key="GridCell.Tab.0.right/47.0.1393.900/0.-1080.1920.1080/-1920.-1080.1920.1080@-1920.-1080.1920.1080" timestamp="1584928171021" />
     <state width="1878" height="188" key="GridCell.Tab.1.bottom" timestamp="1584928171023">
@@ -494,16 +455,16 @@
     </state>
     <state x="45" y="0" key="SettingsEditor/45.0.1395.900/0.-1080.1920.1080/-1920.-1080.1920.1080@-1920.-1080.1920.1080" timestamp="1584928589632" />
     <state x="634" y="-833" key="SettingsEditor/45.0.1395.900/0.-1080.1920.1080/-1920.-1080.1920.1080@0.-1080.1920.1080" timestamp="1584364541494" />
-    <state x="-1238" y="-801" width="557" height="524" key="StructurePopup" timestamp="1584928985460">
+    <state x="-1238" y="-801" width="557" height="524" key="StructurePopup" timestamp="1584935068268">
       <screen x="-1920" y="-1080" width="1920" height="1080" />
     </state>
     <state x="713" y="279" width="543" height="524" key="StructurePopup/1920.180.1440.900/48.0.1872.1080@48.0.1872.1080" timestamp="1584864024721" />
-    <state x="-1238" y="-801" width="557" height="524" key="StructurePopup/45.0.1395.900/0.-1080.1920.1080/-1920.-1080.1920.1080@-1920.-1080.1920.1080" timestamp="1584928985460" />
-    <state x="-1238" y="-801" width="557" height="524" key="StructurePopup/47.0.1393.900/0.-1080.1920.1080/-1920.-1080.1920.1080@-1920.-1080.1920.1080" timestamp="1584927788842" />
-    <state x="-1295" y="-839" width="670" height="676" key="search.everywhere.popup" timestamp="1584927487990">
+    <state x="-1238" y="-801" width="557" height="524" key="StructurePopup/45.0.1395.900/0.-1080.1920.1080/-1920.-1080.1920.1080@-1920.-1080.1920.1080" timestamp="1584935068268" />
+    <state x="-1238" y="-801" width="557" height="524" key="StructurePopup/47.0.1393.900/0.-1080.1920.1080/-1920.-1080.1920.1080@-1920.-1080.1920.1080" timestamp="1584933725932" />
+    <state x="-1295" y="-839" width="670" height="676" key="search.everywhere.popup" timestamp="1584934863461">
       <screen x="-1920" y="-1080" width="1920" height="1080" />
     </state>
-    <state x="-1295" y="-839" width="670" height="676" key="search.everywhere.popup/45.0.1395.900/0.-1080.1920.1080/-1920.-1080.1920.1080@-1920.-1080.1920.1080" timestamp="1584927487990" />
+    <state x="-1295" y="-839" width="670" height="676" key="search.everywhere.popup/45.0.1395.900/0.-1080.1920.1080/-1920.-1080.1920.1080@-1920.-1080.1920.1080" timestamp="1584934863461" />
   </component>
   <component name="ideajad">
     <property name="annotate" value="false" />

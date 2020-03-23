@@ -393,6 +393,9 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
      * when table is null, holds the initial table size to use upon
      * creation, or 0 for default. After initialization, holds the
      * next element count value upon which to resize the table.
+     *
+     * sizeCtl这个参数用于表初始化和resize控制。当表正在初始化或resize的时候，-1表示初始化，或者-（1+resize的总线程数）。
+     * 除此以外，当table为null时，初始表大小设置为创建时候的大小，或者0，或者默认值。初始化后，保持下一个元素计数值，用于调整表的大小。
      */
     private transient volatile int sizeCtl;
 
@@ -506,6 +509,9 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
         /**
          * Returns the TreeNode (or null if not found) for the given key
          * starting at given root.
+         * h 表示key 计算出来的hash 值
+         * k 表示 查找的key
+         * kc = null
          */
         final MyConcurrentHashMap.TreeNode<K, V> findTreeNode(int h, Object k, Class<?> kc) {
             if (k != null) {
@@ -1161,8 +1167,11 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
         MyConcurrentHashMap.Node<K, V>[] tab;
         int sc;
         while ((tab = table) == null || tab.length == 0) {
+            //如果当前Node正在进行初始化或者resize(),则线程从运行状态变成可执行状态，cpu会从可运行状态的线程中选择
             if ((sc = sizeCtl) < 0)
                 Thread.yield(); // lost initialization race; just spin
+
+            //如果当前Node没有初始化或者resize()操作，那么创建新Node节点，并给sizeCtl重新赋值
             else if (U.compareAndSwapInt(this, SIZECTL, sc, -1)) {
                 try {
                     if ((tab = table) == null || tab.length == 0) {
@@ -1201,17 +1210,20 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
 
     @SuppressWarnings("unchecked")
     static final <K, V> MyConcurrentHashMap.Node<K, V> tabAt(MyConcurrentHashMap.Node<K, V>[] tab, int i) {
+        //获取obj对象中offset偏移地址对应的object型field的值,支持volatile load语义
         return (MyConcurrentHashMap.Node<K, V>) U.getObjectVolatile(tab, ((long) i << ASHIFT) + ABASE);
     }
 
 
     static final <K, V> boolean casTabAt(MyConcurrentHashMap.Node<K, V>[] tab, int i,
                                          MyConcurrentHashMap.Node<K, V> c, MyConcurrentHashMap.Node<K, V> v) {
+        //在obj的offset位置比较object field和期望的值，如果相同则更新。
         return U.compareAndSwapObject(tab, ((long) i << ASHIFT) + ABASE, c, v);
     }
 
 
     static final <K, V> void setTabAt(MyConcurrentHashMap.Node<K, V>[] tab, int i, MyConcurrentHashMap.Node<K, V> v) {
+        //设置obj对象中offset偏移地址对应的object型field的值为指定值。
         U.putObjectVolatile(tab, ((long) i << ASHIFT) + ABASE, v);
     }
 
@@ -1242,20 +1254,33 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
     final V putVal(K key, V value, boolean onlyIfAbsent) {
         // 1.校验参数是否合法
         if (key == null || value == null) throw new NullPointerException();
+
         int hash = spread(key.hashCode());
         System.out.println("-----hash------" + hash);
         int binCount = 0;
+        // 2.遍历Node
         for (Node<K, V>[] tab = table; ; ) {
             Node<K, V> f;
             int n, i, fh;
+
+            //2.1.Node为空，初始化Node
             if (tab == null || (n = tab.length) == 0)
                 tab = initTable();
+
+            //2.2.CAS对指定位置的节点进行原子操作
             else if ((f = tabAt(tab, i = (n - 1) & hash)) == null) {
                 if (casTabAt(tab, i, null,
                         new Node<K, V>(hash, key, value, null)))
                     break;                   // no lock when adding to empty bin
+
+
+            //2.3.如果Node的hash值等于-1,map进行扩容
             } else if ((fh = f.hash) == MOVED)
                 tab = helpTransfer(tab, f);
+
+            //2.4.如果Node有值，锁定该Node。
+            //如果key的hash值大于0，key的hash值和key值都相等，则替换，否则new一个新的后继Node节点存放数据。
+            //如果key的hash小于0，则考虑节点是否为TreeBin实例，替换节点还是额外添加节点。
             else {
                 V oldVal = null;
                 synchronized (f) {
@@ -1299,6 +1324,7 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
                 }
             }
         }
+        //3.计算map的size
         addCount(1L, binCount);
         return null;
     }
@@ -1318,7 +1344,7 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
         MyConcurrentHashMap.CounterCell[] as;
         long b, s;
         if ((as = counterCells) != null ||
-                !U.compareAndSwapLong(this, BASECOUNT, b = baseCount, s = b + x)) {
+                !U.compareAndSwapLong(this, BASECOUNT, b = baseCount, s = b + x)) {//如果内存值obj=期望值expect，则更新offset处的内存值为update。
             MyConcurrentHashMap.CounterCell a;
             long v;
             int m;
@@ -2542,7 +2568,7 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
         try {
 
             U = getUnsafe();
-            Class<?> k = ConcurrentHashMap.class;
+            Class<?> k = MyConcurrentHashMap.class;
             SIZECTL = U.objectFieldOffset
                     (k.getDeclaredField("sizeCtl"));
             TRANSFERINDEX = U.objectFieldOffset
@@ -2577,6 +2603,15 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public int size() {
+        long n = sumCount();
+        return ((n < 0L) ? 0 :
+                (n > (long)Integer.MAX_VALUE) ? Integer.MAX_VALUE :
+                        (int)n);
+    }
 
     /* ---------------- Table Initialization and Resizing -------------- */
 
@@ -2587,6 +2622,71 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
     static final int resizeStamp(int n) {
         return Integer.numberOfLeadingZeros(n) | (1 << (RESIZE_STAMP_BITS - 1));
     }
+
+
+
+    /**
+     * Returns the number of mappings. This method should be used
+     * instead of {@link #size} because a ConcurrentHashMap may
+     * contain more mappings than can be represented as an int. The
+     * value returned is an estimate; the actual count may differ if
+     * there are concurrent insertions or removals.
+     *
+     * @return the number of mappings
+     * @since 1.8
+     */
+    public long mappingCount() {
+        long n = sumCount();
+        return (n < 0L) ? 0L : n; // ignore transient negative values
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public boolean isEmpty() {
+        return sumCount() <= 0L; // ignore transient negative values
+    }
+
+    /**
+     * Returns the value to which the specified key is mapped,
+     * or {@code null} if this map contains no mapping for the key.
+     *
+     * <p>More formally, if this map contains a mapping from a key
+     * {@code k} to a value {@code v} such that {@code key.equals(k)},
+     * then this method returns {@code v}; otherwise it returns
+     * {@code null}.  (There can be at most one such mapping.)
+     *
+     * @throws NullPointerException if the specified key is null
+     *
+     * 首先，计算出记录的key的hashCode，然后通过使用(hashCode & (length - 1))的计算方法来获得该记录在table中的index，
+     * 然后判断该位置上是否为null，如果为null，则返回null，否则，如果该位置上的第一个元素（链表头节点或者红黑树的根节点）
+     * 与我们先要查找的记录匹配，则直接返回这个节点的值，否则，如果该节点的hashCode小于0，则说明该位置上是一颗红黑树，
+     * 至于为什么hashCode值小于0就代表是一颗红黑树而不是链表了，这就要看下面的代码了：
+     */
+    public V get(Object key) {
+        MyConcurrentHashMap.Node<K,V>[] tab;
+        MyConcurrentHashMap.Node<K,V> e, p;
+        int n, eh;
+        K ek;
+        int h = spread(key.hashCode());
+        if ((tab = table) != null && (n = tab.length) > 0 &&
+                (e = tabAt(tab, (n - 1) & h)) != null) {
+            if ((eh = e.hash) == h) {
+                if ((ek = e.key) == key || (ek != null && key.equals(ek)))
+                    return e.val;
+            }
+            else if (eh < 0)
+                return (p = e.find(h, key)) != null ? p.val : null;
+            while ((e = e.next) != null) {
+                if (e.hash == h &&
+                        ((ek = e.key) == key || (ek != null && key.equals(ek))))
+                    return e.val;
+            }
+        }
+        return null;
+    }
+
+
 
 
     public static void main(String[] args) {
