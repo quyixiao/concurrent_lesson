@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e7f83738-60d4-4332-b6aa-2ba8c2d255d1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/test/demo6_semaphore/current/Test3.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/test/demo6_semaphore/current/Demo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/test/demo6_semaphore/MyConcurrentHashMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/test/demo6_semaphore/MyConcurrentHashMap.java" afterDir="false" />
     </list>
@@ -61,12 +61,26 @@
       <recent name="$PROJECT_DIR$/src/main/java/com/test/demo2_sysnize" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Test3">
+  <component name="RunManager" selected="Application.Demo">
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="WIDTH" value="400" />
       <option name="HEIGHT" value="300" />
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
       <module />
+    </configuration>
+    <configuration name="Demo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.test.demo6_semaphore.current.Demo" />
+      <module name="concurrent_lesson" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.test.demo6_semaphore.dmo2.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <configuration name="MyConcurrentHashMap" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.test.demo6_semaphore.MyConcurrentHashMap" />
@@ -88,7 +102,7 @@
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.test.demo6_semaphore.current.*" />
+          <option name="PATTERN" value="com.test.demo6_semaphore.dmo2.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -102,7 +116,7 @@
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.test.demo6_semaphore.current.*" />
+          <option name="PATTERN" value="com.test.demo6_semaphore.dmo2.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -116,21 +130,7 @@
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.test.demo6_semaphore.current.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TestJoin5" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.test.demo6_semaphore.TestJoin5" />
-      <module name="concurrent_lesson" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.test.demo6_semaphore.*" />
+          <option name="PATTERN" value="com.test.demo6_semaphore.dmo2.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -171,11 +171,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Demo" />
         <item itemvalue="Application.Test3" />
         <item itemvalue="Application.Test2" />
         <item itemvalue="Application.Test1" />
         <item itemvalue="Application.MyConcurrentHashMap" />
-        <item itemvalue="Application.TestJoin5" />
       </list>
     </recent_temporary>
   </component>
@@ -215,6 +215,8 @@
       <workItem from="1584848093863" duration="8042000" />
       <workItem from="1584927256935" duration="913000" />
       <workItem from="1584928243280" duration="6214000" />
+      <workItem from="1584966988952" duration="2024000" />
+      <workItem from="1585014536603" duration="133000" />
     </task>
     <servers />
   </component>
@@ -230,8 +232,8 @@
       <screen x="48" y="0" width="1872" height="1080" />
     </state>
     <state width="433" height="466" key="DebuggerActiveHint/1920.180.1440.900/48.0.1872.1080@48.0.1872.1080" timestamp="1584864574881" />
-    <state width="1878" height="75" key="GridCell.Tab.0.bottom" timestamp="1584959173027">
-      <screen x="-1920" y="-1080" width="1920" height="1080" />
+    <state width="1878" height="290" key="GridCell.Tab.0.bottom" timestamp="1584969033577">
+      <screen x="0" y="-1080" width="1920" height="1080" />
     </state>
     <state width="1398" height="250" key="GridCell.Tab.0.bottom/1920.180.1440.900/44.0.1876.1080@1920.180.1440.900" timestamp="1584764363010" />
     <state width="1398" height="2" key="GridCell.Tab.0.bottom/1920.180.1440.900/45.0.1875.1080@1920.180.1440.900" timestamp="1584790343724" />
@@ -245,11 +247,12 @@
     <state width="1358" height="266" key="GridCell.Tab.0.bottom/39.0.1401.900/0.-1080.1920.1080/-1920.-1080.1920.1080@39.0.1401.900" timestamp="1584602259701" />
     <state width="1878" height="75" key="GridCell.Tab.0.bottom/40.0.1400.900/0.-1080.1920.1080/-1920.-1080.1920.1080@-1920.-1080.1920.1080" timestamp="1584959173027" />
     <state width="1358" height="398" key="GridCell.Tab.0.bottom/40.0.1400.900/0.-1080.1920.1080/-1920.-1080.1920.1080@0.-1080.1920.1080" timestamp="1584617473433" />
+    <state width="1878" height="290" key="GridCell.Tab.0.bottom/41.0.1399.900/0.-1080.1920.1080/-1920.-1080.1920.1080@0.-1080.1920.1080" timestamp="1584969033577" />
     <state width="1878" height="207" key="GridCell.Tab.0.bottom/45.0.1395.900/0.-1080.1920.1080/-1920.-1080.1920.1080@-1920.-1080.1920.1080" timestamp="1584934198947" />
     <state width="1878" height="229" key="GridCell.Tab.0.bottom/45.0.1395.900/0.-1080.1920.1080/-1920.-1080.1920.1080@0.-1080.1920.1080" timestamp="1584367191085" />
     <state width="1878" height="188" key="GridCell.Tab.0.bottom/47.0.1393.900/0.-1080.1920.1080/-1920.-1080.1920.1080@-1920.-1080.1920.1080" timestamp="1584928171021" />
-    <state width="1878" height="75" key="GridCell.Tab.0.center" timestamp="1584959173025">
-      <screen x="-1920" y="-1080" width="1920" height="1080" />
+    <state width="1878" height="290" key="GridCell.Tab.0.center" timestamp="1584969033576">
+      <screen x="0" y="-1080" width="1920" height="1080" />
     </state>
     <state width="1398" height="250" key="GridCell.Tab.0.center/1920.180.1440.900/44.0.1876.1080@1920.180.1440.900" timestamp="1584764363009" />
     <state width="1398" height="2" key="GridCell.Tab.0.center/1920.180.1440.900/45.0.1875.1080@1920.180.1440.900" timestamp="1584790343723" />
@@ -263,11 +266,12 @@
     <state width="1358" height="266" key="GridCell.Tab.0.center/39.0.1401.900/0.-1080.1920.1080/-1920.-1080.1920.1080@39.0.1401.900" timestamp="1584602259700" />
     <state width="1878" height="75" key="GridCell.Tab.0.center/40.0.1400.900/0.-1080.1920.1080/-1920.-1080.1920.1080@-1920.-1080.1920.1080" timestamp="1584959173025" />
     <state width="1358" height="398" key="GridCell.Tab.0.center/40.0.1400.900/0.-1080.1920.1080/-1920.-1080.1920.1080@0.-1080.1920.1080" timestamp="1584617473432" />
+    <state width="1878" height="290" key="GridCell.Tab.0.center/41.0.1399.900/0.-1080.1920.1080/-1920.-1080.1920.1080@0.-1080.1920.1080" timestamp="1584969033576" />
     <state width="1878" height="207" key="GridCell.Tab.0.center/45.0.1395.900/0.-1080.1920.1080/-1920.-1080.1920.1080@-1920.-1080.1920.1080" timestamp="1584934198945" />
     <state width="1878" height="229" key="GridCell.Tab.0.center/45.0.1395.900/0.-1080.1920.1080/-1920.-1080.1920.1080@0.-1080.1920.1080" timestamp="1584367191085" />
     <state width="1878" height="188" key="GridCell.Tab.0.center/47.0.1393.900/0.-1080.1920.1080/-1920.-1080.1920.1080@-1920.-1080.1920.1080" timestamp="1584928171020" />
-    <state width="1878" height="75" key="GridCell.Tab.0.left" timestamp="1584959173023">
-      <screen x="-1920" y="-1080" width="1920" height="1080" />
+    <state width="1878" height="290" key="GridCell.Tab.0.left" timestamp="1584969033576">
+      <screen x="0" y="-1080" width="1920" height="1080" />
     </state>
     <state width="1398" height="250" key="GridCell.Tab.0.left/1920.180.1440.900/44.0.1876.1080@1920.180.1440.900" timestamp="1584764363009" />
     <state width="1398" height="2" key="GridCell.Tab.0.left/1920.180.1440.900/45.0.1875.1080@1920.180.1440.900" timestamp="1584790343723" />
@@ -281,11 +285,12 @@
     <state width="1358" height="266" key="GridCell.Tab.0.left/39.0.1401.900/0.-1080.1920.1080/-1920.-1080.1920.1080@39.0.1401.900" timestamp="1584602259699" />
     <state width="1878" height="75" key="GridCell.Tab.0.left/40.0.1400.900/0.-1080.1920.1080/-1920.-1080.1920.1080@-1920.-1080.1920.1080" timestamp="1584959173023" />
     <state width="1358" height="398" key="GridCell.Tab.0.left/40.0.1400.900/0.-1080.1920.1080/-1920.-1080.1920.1080@0.-1080.1920.1080" timestamp="1584617473431" />
+    <state width="1878" height="290" key="GridCell.Tab.0.left/41.0.1399.900/0.-1080.1920.1080/-1920.-1080.1920.1080@0.-1080.1920.1080" timestamp="1584969033576" />
     <state width="1878" height="207" key="GridCell.Tab.0.left/45.0.1395.900/0.-1080.1920.1080/-1920.-1080.1920.1080@-1920.-1080.1920.1080" timestamp="1584934198944" />
     <state width="1878" height="229" key="GridCell.Tab.0.left/45.0.1395.900/0.-1080.1920.1080/-1920.-1080.1920.1080@0.-1080.1920.1080" timestamp="1584367191084" />
     <state width="1878" height="188" key="GridCell.Tab.0.left/47.0.1393.900/0.-1080.1920.1080/-1920.-1080.1920.1080@-1920.-1080.1920.1080" timestamp="1584928171020" />
-    <state width="1878" height="75" key="GridCell.Tab.0.right" timestamp="1584959173026">
-      <screen x="-1920" y="-1080" width="1920" height="1080" />
+    <state width="1878" height="290" key="GridCell.Tab.0.right" timestamp="1584969033577">
+      <screen x="0" y="-1080" width="1920" height="1080" />
     </state>
     <state width="1398" height="250" key="GridCell.Tab.0.right/1920.180.1440.900/44.0.1876.1080@1920.180.1440.900" timestamp="1584764363010" />
     <state width="1398" height="2" key="GridCell.Tab.0.right/1920.180.1440.900/45.0.1875.1080@1920.180.1440.900" timestamp="1584790343723" />
@@ -299,6 +304,7 @@
     <state width="1358" height="266" key="GridCell.Tab.0.right/39.0.1401.900/0.-1080.1920.1080/-1920.-1080.1920.1080@39.0.1401.900" timestamp="1584602259700" />
     <state width="1878" height="75" key="GridCell.Tab.0.right/40.0.1400.900/0.-1080.1920.1080/-1920.-1080.1920.1080@-1920.-1080.1920.1080" timestamp="1584959173025" />
     <state width="1358" height="398" key="GridCell.Tab.0.right/40.0.1400.900/0.-1080.1920.1080/-1920.-1080.1920.1080@0.-1080.1920.1080" timestamp="1584617473432" />
+    <state width="1878" height="290" key="GridCell.Tab.0.right/41.0.1399.900/0.-1080.1920.1080/-1920.-1080.1920.1080@0.-1080.1920.1080" timestamp="1584969033577" />
     <state width="1878" height="207" key="GridCell.Tab.0.right/45.0.1395.900/0.-1080.1920.1080/-1920.-1080.1920.1080@-1920.-1080.1920.1080" timestamp="1584934198946" />
     <state width="1878" height="229" key="GridCell.Tab.0.right/45.0.1395.900/0.-1080.1920.1080/-1920.-1080.1920.1080@0.-1080.1920.1080" timestamp="1584367191085" />
     <state width="1878" height="188" key="GridCell.Tab.0.right/47.0.1393.900/0.-1080.1920.1080/-1920.-1080.1920.1080@-1920.-1080.1920.1080" timestamp="1584928171021" />

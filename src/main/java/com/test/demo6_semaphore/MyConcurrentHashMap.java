@@ -509,35 +509,46 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
         /**
          * Returns the TreeNode (or null if not found) for the given key
          * starting at given root.
-         * h 表示key 计算出来的hash 值
-         * k 表示 查找的key
-         * kc = null
+         * 这个方法是TreeNode类的一个实例方法，调用该方法的也就是一个TreeNode对象，
+         * 该对象就是树上的某个节点，以该节点作为根节点，查找其所有子孙节点，
+         * 看看哪个节点能够匹配上给定的键对象
+         * h k的hash值
+         * k 要查找的对象
+         * kc k的Class对象，该Class应该是实现了Comparable<K>的，否则应该是null，参见：
          */
         final MyConcurrentHashMap.TreeNode<K, V> findTreeNode(int h, Object k, Class<?> kc) {
             if (k != null) {
-                MyConcurrentHashMap.TreeNode<K, V> p = this;
-                do {
-                    int ph, dir;
-                    K pk;
+                MyConcurrentHashMap.TreeNode<K, V> p = this;// 把当前对象赋给p，表示当前节点
+                do {// 循环
+                    int ph, dir;// 定义当前节点的hash值、方向（左右）、
+                    K pk;//当前节点的键对象
                     MyConcurrentHashMap.TreeNode<K, V> q;
-                    MyConcurrentHashMap.TreeNode<K, V> pl = p.left, pr = p.right;
-                    if ((ph = p.hash) > h)
-                        p = pl;
-                    else if (ph < h)
-                        p = pr;
-                    else if ((pk = p.key) == k || (pk != null && k.equals(pk)))
-                        return p;
+                    MyConcurrentHashMap.TreeNode<K, V> pl = p.left, pr = p.right;// 获取当前节点的左孩子、右孩子。定义一个对象q用来存储并返回找到的对象
+                    if ((ph = p.hash) > h)// 如果当前节点的hash值大于k得hash值h，那么后续就应该让k和左孩子节点进行下一轮比较
+                        p = pl;   // p指向左孩子，紧接着就是下一轮循环了
+                    else if (ph < h) // 如果当前节点的hash值小于k得hash值h，那么后续就应该让k和右孩子节点进行下一轮比较
+                        p = pr; // p指向右孩子，紧接着就是下一轮循环了
+                    else if ((pk = p.key) == k || (pk != null && k.equals(pk))) // 如果h和当前节点的hash值相同，并且当前节点的键对象pk和k相等（地址相同或者equals相同）
+                        return p;  // 返回当前节点
+
+                    // 执行到这里说明 hash比对相同，但是pk和k不相等
                     else if (pl == null)
-                        p = pr;
+                        p = pr;    // p指向右孩子，紧接着就是下一轮循环了
                     else if (pr == null)
-                        p = pl;
+                        p = pl;   // p指向左孩子，紧接着就是下一轮循环了
+
+                    // 如果左右孩子都不为空，那么需要再进行一轮对比来确定到底该往哪个方向去深入对比
+                    // 这一轮的对比主要是想通过comparable方法来比较pk和k的大小
                     else if ((kc != null ||
                             (kc = comparableClassFor(k)) != null) &&
                             (dir = compareComparables(kc, k, pk)) != 0)
-                        p = (dir < 0) ? pl : pr;
+                        p = (dir < 0) ? pl : pr;   // dir小于0，p指向左孩子，否则指向右孩子。紧接着就是下一轮循环了
+
+                    // 执行到这里说明无法通过comparable比较  或者 比较之后还是相等
+                    // 从右孩子节点递归循环查找，如果找到了匹配的则返回
                     else if ((q = pr.findTreeNode(h, k, kc)) != null)
                         return q;
-                    else
+                    else  // 如果从右孩子节点递归查找后仍未找到，那么从左孩子节点进行下一轮循环
                         p = pl;
                 } while (p != null);
             }
@@ -560,6 +571,7 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
     /**
      * Returns x's Class if it is of the form "class C implements
      * Comparable<C>", else null.
+     * C 类直接实现了Comparable<C>
      */
     static Class<?> comparableClassFor(Object x) {
         if (x instanceof Comparable) {
@@ -2658,7 +2670,7 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
      *
      * @throws NullPointerException if the specified key is null
      *
-     * 首先，计算出记录的key的hashCode，然后通过使用(hashCode & (length - 1))的计算方法来获得该记录在table中的index，
+     * 首先，计算出记录的key的hashCode，然后通过使用(hashCode & (length - 1))   的计算方法来获得该记录在table中的index，
      * 然后判断该位置上是否为null，如果为null，则返回null，否则，如果该位置上的第一个元素（链表头节点或者红黑树的根节点）
      * 与我们先要查找的记录匹配，则直接返回这个节点的值，否则，如果该节点的hashCode小于0，则说明该位置上是一颗红黑树，
      * 至于为什么hashCode值小于0就代表是一颗红黑树而不是链表了，这就要看下面的代码了：
