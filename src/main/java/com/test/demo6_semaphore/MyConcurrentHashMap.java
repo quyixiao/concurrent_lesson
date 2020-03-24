@@ -11,7 +11,6 @@ import java.lang.reflect.Type;
 import java.util.AbstractMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.locks.LockSupport;
 import java.util.function.BiConsumer;
@@ -393,7 +392,7 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
      * when table is null, holds the initial table size to use upon
      * creation, or 0 for default. After initialization, holds the
      * next element count value upon which to resize the table.
-     *
+     * <p>
      * sizeCtl这个参数用于表初始化和resize控制。当表正在初始化或resize的时候，-1表示初始化，或者-（1+resize的总线程数）。
      * 除此以外，当table为null时，初始表大小设置为创建时候的大小，或者0，或者默认值。初始化后，保持下一个元素计数值，用于调整表的大小。
      */
@@ -531,21 +530,23 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
                     else if ((pk = p.key) == k || (pk != null && k.equals(pk))) // 如果h和当前节点的hash值相同，并且当前节点的键对象pk和k相等（地址相同或者equals相同）
                         return p;  // 返回当前节点
 
-                    // 执行到这里说明 hash比对相同，但是pk和k不相等
+                        // 执行到这里说明 hash比对相同，但是pk和k不相等
                     else if (pl == null)
                         p = pr;    // p指向右孩子，紧接着就是下一轮循环了
                     else if (pr == null)
                         p = pl;   // p指向左孩子，紧接着就是下一轮循环了
 
-                    // 如果左右孩子都不为空，那么需要再进行一轮对比来确定到底该往哪个方向去深入对比
-                    // 这一轮的对比主要是想通过comparable方法来比较pk和k的大小
+                        // 如果左右孩子都不为空，那么需要再进行一轮对比来确定到底该往哪个方向去深入对比
+                        // 这一轮的对比主要是想通过comparable方法来比较pk和k的大小
                     else if ((kc != null ||
+                            //C 类直接实现了Comparable<C>
                             (kc = comparableClassFor(k)) != null) &&
+                            //
                             (dir = compareComparables(kc, k, pk)) != 0)
                         p = (dir < 0) ? pl : pr;   // dir小于0，p指向左孩子，否则指向右孩子。紧接着就是下一轮循环了
 
-                    // 执行到这里说明无法通过comparable比较  或者 比较之后还是相等
-                    // 从右孩子节点递归循环查找，如果找到了匹配的则返回
+                        // 执行到这里说明无法通过comparable比较  或者 比较之后还是相等
+                        // 从右孩子节点递归循环查找，如果找到了匹配的则返回
                     else if ((q = pr.findTreeNode(h, k, kc)) != null)
                         return q;
                     else  // 如果从右孩子节点递归查找后仍未找到，那么从左孩子节点进行下一轮循环
@@ -572,6 +573,8 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
      * Returns x's Class if it is of the form "class C implements
      * Comparable<C>", else null.
      * C 类直接实现了Comparable<C>
+     * insanceof可以理解为是某种类型的实例，无论是运行时类型，还是它的父类，它实现的接口，他的父类实现的接口，甚至它的父类的父类的
+     * 父类类实现的接口的父类的父类，总之，只要在继承链上有这个类型就可以了
      */
     static Class<?> comparableClassFor(Object x) {
         if (x instanceof Comparable) {
@@ -581,6 +584,9 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
             ParameterizedType p;
             if ((c = x.getClass()) == String.class) // bypass checks
                 return c;
+            // getGenericInterfaces()方法返回的是该对象的运行时类型“直接实现”的接口，这意味着：
+            // 返回的一定是接口
+            // 必然是该类型自己实现的接口，继承过来的不算
             if ((ts = c.getGenericInterfaces()) != null) {
                 for (int i = 0; i < ts.length; ++i) {
                     if (((t = ts[i]) instanceof ParameterizedType) &&
@@ -1163,9 +1169,8 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
      * cheapest(便宜地) possible way to reduce systematic lossage(损失), as well as
      * to incorporate(合并) impact(影响) of the highest bits that would otherwise
      * never be used in index calculations because of table bounds(界限).
-     *
+     * <p>
      * 跟HashMap的hash算法类似，只是把位数控制在int最大整数之内。
-     *
      */
     public static final int spread(int h) {
         return (h ^ (h >>> 16)) & HASH_BITS;
@@ -1175,7 +1180,7 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
     /**
      * Initializes table, using the size recorded in sizeCtl.
      */
-    private final MyConcurrentHashMap.Node<K, V>[] initTable() {
+    public  final MyConcurrentHashMap.Node<K, V>[] initTable() {
         MyConcurrentHashMap.Node<K, V>[] tab;
         int sc;
         while ((tab = table) == null || tab.length == 0) {
@@ -1183,7 +1188,7 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
             if ((sc = sizeCtl) < 0)
                 Thread.yield(); // lost initialization race; just spin
 
-            //如果当前Node没有初始化或者resize()操作，那么创建新Node节点，并给sizeCtl重新赋值
+                //如果当前Node没有初始化或者resize()操作，那么创建新Node节点，并给sizeCtl重新赋值
             else if (U.compareAndSwapInt(this, SIZECTL, sc, -1)) {
                 try {
                     if ((tab = table) == null || tab.length == 0) {
@@ -1194,6 +1199,7 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
                         sc = n - (n >>> 2);
                     }
                 } finally {
+                    System.out.println("=======sc=====" + sc);
                     sizeCtl = sc;
                 }
                 break;
@@ -1223,6 +1229,7 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
     @SuppressWarnings("unchecked")
     static final <K, V> MyConcurrentHashMap.Node<K, V> tabAt(MyConcurrentHashMap.Node<K, V>[] tab, int i) {
         //获取obj对象中offset偏移地址对应的object型field的值,支持volatile load语义
+        System.out.println("======tabAt==xxx======i = " + i + "=================" + (((long) i << ASHIFT) + ABASE));
         return (MyConcurrentHashMap.Node<K, V>) U.getObjectVolatile(tab, ((long) i << ASHIFT) + ABASE);
     }
 
@@ -1230,6 +1237,7 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
     static final <K, V> boolean casTabAt(MyConcurrentHashMap.Node<K, V>[] tab, int i,
                                          MyConcurrentHashMap.Node<K, V> c, MyConcurrentHashMap.Node<K, V> v) {
         //在obj的offset位置比较object field和期望的值，如果相同则更新。
+        System.out.println("======casTabAt==xxx======i = " + i + "=================" + (((long) i << ASHIFT) + ABASE));
         return U.compareAndSwapObject(tab, ((long) i << ASHIFT) + ABASE, c, v);
     }
 
@@ -1240,7 +1248,6 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
     }
 
 
-
     /**
      * Maps the specified(具体说明) key to the specified value in this table.
      * Neither(都不) the key nor the value can be null.
@@ -1248,16 +1255,15 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
      * <p>The value can be retrieved(取回) by calling the {@code get} method
      * with a key that is equal to the original key.
      *
-     * @param key key with which the specified value is to be associated
+     * @param key   key with which the specified value is to be associated
      * @param value value to be associated with the specified key
      * @return the previous(先前的) value associated with {@code key}, or
-     *         {@code null} if there was no mapping for {@code key}
+     * {@code null} if there was no mapping for {@code key}
      * @throws NullPointerException if the specified key or value is null
      */
     public V put(K key, V value) {
         return putVal(key, value, false);
     }
-
 
 
     /**
@@ -1279,20 +1285,20 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
             if (tab == null || (n = tab.length) == 0)
                 tab = initTable();
 
-            //2.2.CAS对指定位置的节点进行原子操作
+                //2.2.CAS对指定位置的节点进行原子操作
             else if ((f = tabAt(tab, i = (n - 1) & hash)) == null) {
                 if (casTabAt(tab, i, null,
                         new Node<K, V>(hash, key, value, null)))
                     break;                   // no lock when adding to empty bin
 
 
-            //2.3.如果Node的hash值等于-1,map进行扩容
+                //2.3.如果Node的hash值等于-1,map进行扩容
             } else if ((fh = f.hash) == MOVED)
                 tab = helpTransfer(tab, f);
 
-            //2.4.如果Node有值，锁定该Node。
-            //如果key的hash值大于0，key的hash值和key值都相等，则替换，否则new一个新的后继Node节点存放数据。
-            //如果key的hash小于0，则考虑节点是否为TreeBin实例，替换节点还是额外添加节点。
+                //2.4.如果Node有值，锁定该Node。
+                //如果key的hash值大于0，key的hash值和key值都相等，则替换，否则new一个新的后继Node节点存放数据。
+                //如果key的hash小于0，则考虑节点是否为TreeBin实例，替换节点还是额外添加节点。
             else {
                 V oldVal = null;
                 synchronized (f) {
@@ -1590,11 +1596,14 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
     /**
      * Moves and/or copies the nodes in each bin to new table. See
      * above for explanation.
+     * https://www.cnblogs.com/softidea/p/10261414.html
      */
     private final void transfer(MyConcurrentHashMap.Node<K, V>[] tab, MyConcurrentHashMap.Node<K, V>[] nextTab) {
         int n = tab.length, stride;
+        // 1.通过计算 CPU 核心数和 Map 数组的长度得到每个线程（CPU）要帮助处理多少个桶，并且这里每个线程处理都是平均的。默认每个线程处理 16 个桶。因此，如果长度是 16 的时候，扩容的时候只会有一个线程扩容。
         if ((stride = (NCPU > 1) ? (n >>> 3) / NCPU : n) < MIN_TRANSFER_STRIDE)
             stride = MIN_TRANSFER_STRIDE; // subdivide range
+        // 2.初始化临时变量 nextTable。将其在原有基础上扩容两倍。
         if (nextTab == null) {            // initiating
             try {
                 @SuppressWarnings("unchecked")
@@ -1607,13 +1616,19 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
             nextTable = nextTab;
             transferIndex = n;
         }
+
         int nextn = nextTab.length;
         MyConcurrentHashMap.ForwardingNode<K, V> fwd = new MyConcurrentHashMap.ForwardingNode<K, V>(nextTab);
         boolean advance = true;
         boolean finishing = false; // to ensure sweep before committing nextTab
+        // 3.死循环开始转移。多线程并发转移就是在这个死循环中，根据一个 finishing 变量来判断，该变量为 true 表示扩容结束，否则继续扩容。
         for (int i = 0, bound = 0; ; ) {
             MyConcurrentHashMap.Node<K, V> f;
             int fh;
+            // 3.1 进入一个 while 循环，分配数组中一个桶的区间给线程，默认是 16. 从大到小进行分配。当拿到分配值后，进行 i-- 递减。
+            // 这个 i 就是数组下标。（其中有一个 bound 参数，这个参数指的是该线程此次可以处理的区间的最小下标，超过这个下标，
+            // 就需要重新领取区间或者结束扩容，还有一个 advance 参数，该参数指的是是否继续递减转移下一个桶，如果为 true，
+            // 表示可以继续向后推进，反之，说明还没有处理好当前桶，不能推进)
             while (advance) {
                 int nextIndex, nextBound;
                 if (--i >= bound || finishing)
@@ -1630,6 +1645,10 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
                     advance = false;
                 }
             }
+            // 3.2 出 while 循环，进 if 判断，判断扩容是否结束，如果扩容结束，清空临时变量，更新 table 变量，更新库容阈值。
+            // 如果没完成，但已经无法领取区间（没了），该线程退出该方法，并将 sizeCtl 减一，表示扩容的线程少一个了。如果减完这
+            // 个数以后，sizeCtl 回归了初始状态，表示没有线程再扩容了，该方法所有的线程扩容结束了。（这里主要是判断扩容任务是否结束，
+            // 如果结束了就让线程退出该方法，并更新相关变量）。然后检查所有的桶，防止遗漏。
             if (i < 0 || i >= n || i + n >= nextn) {
                 int sc;
                 if (finishing) {
@@ -1786,19 +1805,54 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
 
     /**
      * Helps transfer if a resize is in progress.
+     * sizeCtl ：
+     * -1 :代表table正在初始化,其他线程应该交出CPU时间片
+     * -N: 表示正有N-1个线程执行扩容操作（高 16 位是 length 生成的标识符，低 16 位是扩容的线程数）
+     * 大于 0: 如果table已经初始化,代表table容量,默认为table大小的0.75,如果还未初始化,代表需要初始化的大小
+     *
+     *
+     *
+     * 如果还在扩容，判断标识符是否变化，判断扩容是否结束，判断是否达到最大线程数，判断扩容转移下标是否在调整（扩容结束），如果满足任意条件，结束循环。
+     * 如果不满足，并发转移。
+     *
      */
     final MyConcurrentHashMap.Node<K, V>[] helpTransfer(MyConcurrentHashMap.Node<K, V>[] tab, MyConcurrentHashMap.Node<K, V> f) {
         MyConcurrentHashMap.Node<K, V>[] nextTab;
         int sc;
+        // 如果 table 不是空 且 node 节点是转移类型，数据检验
+        // 且 node 节点的 nextTable（新 table） 不是空，同样也是数据校验
+        // 尝试帮助扩容
+        // 1.判 tab 空，判断是否是转移节点。判断 nextTable 是否更改了。
         if (tab != null && (f instanceof MyConcurrentHashMap.ForwardingNode) &&
                 (nextTab = ((MyConcurrentHashMap.ForwardingNode<K, V>) f).nextTable) != null) {
+            // 根据 length 得到一个标识符号
+            // 2. 更加 length 得到标识符。
             int rs = resizeStamp(tab.length);
+            System.out.println("=========helpTransfer.rs===============" + rs);
+            // 如果 nextTab 没有被并发修改 且 tab 也没有被并发修改
+            // 且 sizeCtl  < 0 （说明还在扩容）
+            // 3. 判断是否并发修改了，判断是否还在扩容。
             while (nextTab == nextTable && table == tab &&
                     (sc = sizeCtl) < 0) {
+                // 如果 sizeCtl 无符号右移  16 不等于 rs （ sc前 16 位如果不等于标识符，则标识符变化了）
+                // 或者 sizeCtl == rs + 1  （扩容结束了，不再有线程进行扩容）（默认第一个线程设置 sc ==rs 左移 16 位 + 2，当第一个线程结束扩容了，就会将 sc 减一。这个时候，sc 就等于 rs + 1）
+                // 或者 sizeCtl == rs + 65535  （如果达到最大帮助线程的数量，即 65535）
+                // 或者转移下标正在调整 （扩容结束）
+                // 结束循环，返回 table
+                // 4.如果还在扩容，判断标识符是否变化，判断扩容是否结束，判断是否达到最大线程数，判断扩容转移下标是否在调整（扩容结束），如果满足任意条件，结束循环。
+                //注意：  sc == rs + 1 这里有一个花费了很长时间纠结的地方：这个判断可以在 addCount 方法中找到答案：默认第一个线程设置 sc ==rs 左移 16 位 + 2，当第一个线程结束扩容了，就会将 sc 减一。这个时候，sc 就等于 rs + 1
+                //  如果 sizeCtl == 标识符 + 1 ，说明库容结束了，没有必要再扩容了。
+                //  总结一下：
+                //  当 Cmap put 元素的时候，如果发现这个节点的元素类型是 forward 的话，就帮助正在扩容的线程一起扩容，提高速度。其中，
+                //  sizeCtl 是关键，该变量高 16 位保存 length 生成的标识符，低 16 位保存并发扩容的线程数，通过这连个数字，可以判断出，是否结束扩容了。
+                //
                 if ((sc >>> RESIZE_STAMP_SHIFT) != rs || sc == rs + 1 ||
                         sc == rs + MAX_RESIZERS || transferIndex <= 0)
                     break;
+                // 如果以上都不是, 将 sizeCtl + 1, （表示增加了一个线程帮助其扩容）
                 if (U.compareAndSwapInt(this, SIZECTL, sc, sc + 1)) {
+                    // 进行转移
+                    // 5.如果不满足，并发转移。
                     transfer(tab, nextTab);
                     break;
                 }
@@ -2106,12 +2160,12 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
     /**
      * A place-holder node used in computeIfAbsent and compute
      */
-    static final class ReservationNode<K,V> extends MyConcurrentHashMap.Node<K,V> {
+    static final class ReservationNode<K, V> extends MyConcurrentHashMap.Node<K, V> {
         ReservationNode() {
             super(RESERVED, null, null, null);
         }
 
-        MyConcurrentHashMap.Node<K,V> find(int h, Object k) {
+        MyConcurrentHashMap.Node<K, V> find(int h, Object k) {
             return null;
         }
     }
@@ -2127,17 +2181,17 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
      * is in progress, so the computation should be short and simple,
      * and must not attempt to update any other mappings of this map.
      *
-     * @param key key with which the specified value is to be associated
+     * @param key             key with which the specified value is to be associated
      * @param mappingFunction the function to compute a value
      * @return the current (existing or computed) value associated with
-     *         the specified key, or null if the computed value is null
-     * @throws NullPointerException if the specified key or mappingFunction
-     *         is null
+     * the specified key, or null if the computed value is null
+     * @throws NullPointerException  if the specified key or mappingFunction
+     *                               is null
      * @throws IllegalStateException if the computation detectably
-     *         attempts a recursive update to this map that would
-     *         otherwise never complete
-     * @throws RuntimeException or Error if the mappingFunction does so,
-     *         in which case the mapping is left unestablished
+     *                               attempts a recursive update to this map that would
+     *                               otherwise never complete
+     * @throws RuntimeException      or Error if the mappingFunction does so,
+     *                               in which case the mapping is left unestablished
      */
     public V computeIfAbsent(K key, Function<? super K, ? extends V> mappingFunction) {
         if (key == null || mappingFunction == null)
@@ -2145,19 +2199,20 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
         int h = spread(key.hashCode());
         V val = null;
         int binCount = 0;
-        for (MyConcurrentHashMap.Node<K,V>[] tab = table;;) {
-            MyConcurrentHashMap.Node<K,V> f; int n, i, fh;
+        for (MyConcurrentHashMap.Node<K, V>[] tab = table; ; ) {
+            MyConcurrentHashMap.Node<K, V> f;
+            int n, i, fh;
             if (tab == null || (n = tab.length) == 0)
                 tab = initTable();
             else if ((f = tabAt(tab, i = (n - 1) & h)) == null) {
-                MyConcurrentHashMap.Node<K,V> r = new MyConcurrentHashMap.ReservationNode<K,V>();
+                MyConcurrentHashMap.Node<K, V> r = new MyConcurrentHashMap.ReservationNode<K, V>();
                 synchronized (r) {
                     if (casTabAt(tab, i, null, r)) {
                         binCount = 1;
-                        MyConcurrentHashMap.Node<K,V> node = null;
+                        MyConcurrentHashMap.Node<K, V> node = null;
                         try {
                             if ((val = mappingFunction.apply(key)) != null)
-                                node = new MyConcurrentHashMap.Node<K,V>(h, key, val, null);
+                                node = new MyConcurrentHashMap.Node<K, V>(h, key, val, null);
                         } finally {
                             setTabAt(tab, i, node);
                         }
@@ -2165,8 +2220,7 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
                 }
                 if (binCount != 0)
                     break;
-            }
-            else if ((fh = f.hash) == MOVED)
+            } else if ((fh = f.hash) == MOVED)
                 tab = helpTransfer(tab, f);
             else {
                 boolean added = false;
@@ -2174,28 +2228,28 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
                     if (tabAt(tab, i) == f) {
                         if (fh >= 0) {
                             binCount = 1;
-                            for (MyConcurrentHashMap.Node<K,V> e = f;; ++binCount) {
-                                K ek; V ev;
+                            for (MyConcurrentHashMap.Node<K, V> e = f; ; ++binCount) {
+                                K ek;
+                                V ev;
                                 if (e.hash == h &&
                                         ((ek = e.key) == key ||
                                                 (ek != null && key.equals(ek)))) {
                                     val = e.val;
                                     break;
                                 }
-                                MyConcurrentHashMap.Node<K,V> pred = e;
+                                MyConcurrentHashMap.Node<K, V> pred = e;
                                 if ((e = e.next) == null) {
                                     if ((val = mappingFunction.apply(key)) != null) {
                                         added = true;
-                                        pred.next = new MyConcurrentHashMap.Node<K,V>(h, key, val, null);
+                                        pred.next = new MyConcurrentHashMap.Node<K, V>(h, key, val, null);
                                     }
                                     break;
                                 }
                             }
-                        }
-                        else if (f instanceof MyConcurrentHashMap.TreeBin) {
+                        } else if (f instanceof MyConcurrentHashMap.TreeBin) {
                             binCount = 2;
-                            MyConcurrentHashMap.TreeBin<K,V> t = (MyConcurrentHashMap.TreeBin<K,V>)f;
-                            MyConcurrentHashMap.TreeNode<K,V> r, p;
+                            MyConcurrentHashMap.TreeBin<K, V> t = (MyConcurrentHashMap.TreeBin<K, V>) f;
+                            MyConcurrentHashMap.TreeNode<K, V> r, p;
                             if ((r = t.root) != null &&
                                     (p = r.findTreeNode(h, key, null)) != null)
                                 val = p.val;
@@ -2229,16 +2283,16 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
      * computation should be short and simple, and must not attempt to
      * update any other mappings of this map.
      *
-     * @param key key with which a value may be associated
+     * @param key               key with which a value may be associated
      * @param remappingFunction the function to compute a value
      * @return the new value associated with the specified key, or null if none
-     * @throws NullPointerException if the specified key or remappingFunction
-     *         is null
+     * @throws NullPointerException  if the specified key or remappingFunction
+     *                               is null
      * @throws IllegalStateException if the computation detectably
-     *         attempts a recursive update to this map that would
-     *         otherwise never complete
-     * @throws RuntimeException or Error if the remappingFunction does so,
-     *         in which case the mapping is unchanged
+     *                               attempts a recursive update to this map that would
+     *                               otherwise never complete
+     * @throws RuntimeException      or Error if the remappingFunction does so,
+     *                               in which case the mapping is unchanged
      */
     public V computeIfPresent(K key, BiFunction<? super K, ? super V, ? extends V> remappingFunction) {
         if (key == null || remappingFunction == null)
@@ -2247,8 +2301,9 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
         V val = null;
         int delta = 0;
         int binCount = 0;
-        for (MyConcurrentHashMap.Node<K,V>[] tab = table;;) {
-            MyConcurrentHashMap.Node<K,V> f; int n, i, fh;
+        for (MyConcurrentHashMap.Node<K, V>[] tab = table; ; ) {
+            MyConcurrentHashMap.Node<K, V> f;
+            int n, i, fh;
             if (tab == null || (n = tab.length) == 0)
                 tab = initTable();
             else if ((f = tabAt(tab, i = (n - 1) & h)) == null)
@@ -2260,7 +2315,7 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
                     if (tabAt(tab, i) == f) {
                         if (fh >= 0) {
                             binCount = 1;
-                            for (MyConcurrentHashMap.Node<K,V> e = f, pred = null;; ++binCount) {
+                            for (MyConcurrentHashMap.Node<K, V> e = f, pred = null; ; ++binCount) {
                                 K ek;
                                 if (e.hash == h &&
                                         ((ek = e.key) == key ||
@@ -2270,7 +2325,7 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
                                         e.val = val;
                                     else {
                                         delta = -1;
-                                        MyConcurrentHashMap.Node<K,V> en = e.next;
+                                        MyConcurrentHashMap.Node<K, V> en = e.next;
                                         if (pred != null)
                                             pred.next = en;
                                         else
@@ -2282,11 +2337,10 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
                                 if ((e = e.next) == null)
                                     break;
                             }
-                        }
-                        else if (f instanceof MyConcurrentHashMap.TreeBin) {
+                        } else if (f instanceof MyConcurrentHashMap.TreeBin) {
                             binCount = 2;
-                            MyConcurrentHashMap.TreeBin<K,V> t = (MyConcurrentHashMap.TreeBin<K,V>)f;
-                            MyConcurrentHashMap.TreeNode<K,V> r, p;
+                            MyConcurrentHashMap.TreeBin<K, V> t = (MyConcurrentHashMap.TreeBin<K, V>) f;
+                            MyConcurrentHashMap.TreeNode<K, V> r, p;
                             if ((r = t.root) != null &&
                                     (p = r.findTreeNode(h, key, null)) != null) {
                                 val = remappingFunction.apply(key, p.val);
@@ -2306,10 +2360,9 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
             }
         }
         if (delta != 0)
-            addCount((long)delta, binCount);
+            addCount((long) delta, binCount);
         return val;
     }
-
 
 
     /**
@@ -2321,16 +2374,16 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
      * computation should be short and simple, and must not attempt to
      * update any other mappings of this Map.
      *
-     * @param key key with which the specified value is to be associated
+     * @param key               key with which the specified value is to be associated
      * @param remappingFunction the function to compute a value
      * @return the new value associated with the specified key, or null if none
-     * @throws NullPointerException if the specified key or remappingFunction
-     *         is null
+     * @throws NullPointerException  if the specified key or remappingFunction
+     *                               is null
      * @throws IllegalStateException if the computation detectably
-     *         attempts a recursive update to this map that would
-     *         otherwise never complete
-     * @throws RuntimeException or Error if the remappingFunction does so,
-     *         in which case the mapping is unchanged
+     *                               attempts a recursive update to this map that would
+     *                               otherwise never complete
+     * @throws RuntimeException      or Error if the remappingFunction does so,
+     *                               in which case the mapping is unchanged
      */
     public V compute(K key,
                      BiFunction<? super K, ? super V, ? extends V> remappingFunction) {
@@ -2340,20 +2393,21 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
         V val = null;
         int delta = 0;
         int binCount = 0;
-        for (MyConcurrentHashMap.Node<K,V>[] tab = table;;) {
-            MyConcurrentHashMap.Node<K,V> f; int n, i, fh;
+        for (MyConcurrentHashMap.Node<K, V>[] tab = table; ; ) {
+            MyConcurrentHashMap.Node<K, V> f;
+            int n, i, fh;
             if (tab == null || (n = tab.length) == 0)
                 tab = initTable();
             else if ((f = tabAt(tab, i = (n - 1) & h)) == null) {
-                MyConcurrentHashMap.Node<K,V> r = new MyConcurrentHashMap.ReservationNode<K,V>();
+                MyConcurrentHashMap.Node<K, V> r = new MyConcurrentHashMap.ReservationNode<K, V>();
                 synchronized (r) {
                     if (casTabAt(tab, i, null, r)) {
                         binCount = 1;
-                        MyConcurrentHashMap.Node<K,V> node = null;
+                        MyConcurrentHashMap.Node<K, V> node = null;
                         try {
                             if ((val = remappingFunction.apply(key, null)) != null) {
                                 delta = 1;
-                                node = new MyConcurrentHashMap.Node<K,V>(h, key, val, null);
+                                node = new MyConcurrentHashMap.Node<K, V>(h, key, val, null);
                             }
                         } finally {
                             setTabAt(tab, i, node);
@@ -2362,15 +2416,14 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
                 }
                 if (binCount != 0)
                     break;
-            }
-            else if ((fh = f.hash) == MOVED)
+            } else if ((fh = f.hash) == MOVED)
                 tab = helpTransfer(tab, f);
             else {
                 synchronized (f) {
                     if (tabAt(tab, i) == f) {
                         if (fh >= 0) {
                             binCount = 1;
-                            for (MyConcurrentHashMap.Node<K,V> e = f, pred = null;; ++binCount) {
+                            for (MyConcurrentHashMap.Node<K, V> e = f, pred = null; ; ++binCount) {
                                 K ek;
                                 if (e.hash == h &&
                                         ((ek = e.key) == key ||
@@ -2380,7 +2433,7 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
                                         e.val = val;
                                     else {
                                         delta = -1;
-                                        MyConcurrentHashMap.Node<K,V> en = e.next;
+                                        MyConcurrentHashMap.Node<K, V> en = e.next;
                                         if (pred != null)
                                             pred.next = en;
                                         else
@@ -2394,16 +2447,15 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
                                     if (val != null) {
                                         delta = 1;
                                         pred.next =
-                                                new MyConcurrentHashMap.Node<K,V>(h, key, val, null);
+                                                new MyConcurrentHashMap.Node<K, V>(h, key, val, null);
                                     }
                                     break;
                                 }
                             }
-                        }
-                        else if (f instanceof MyConcurrentHashMap.TreeBin) {
+                        } else if (f instanceof MyConcurrentHashMap.TreeBin) {
                             binCount = 1;
-                            MyConcurrentHashMap.TreeBin<K,V> t = (MyConcurrentHashMap.TreeBin<K,V>)f;
-                            MyConcurrentHashMap.TreeNode<K,V> r, p;
+                            MyConcurrentHashMap.TreeBin<K, V> t = (MyConcurrentHashMap.TreeBin<K, V>) f;
+                            MyConcurrentHashMap.TreeNode<K, V> r, p;
                             if ((r = t.root) != null)
                                 p = r.findTreeNode(h, key, null);
                             else
@@ -2417,8 +2469,7 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
                                     delta = 1;
                                     t.putTreeVal(h, key, val);
                                 }
-                            }
-                            else if (p != null) {
+                            } else if (p != null) {
                                 delta = -1;
                                 if (t.removeTreeNode(p))
                                     setTabAt(tab, i, untreeify(t.first));
@@ -2434,10 +2485,9 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
             }
         }
         if (delta != 0)
-            addCount((long)delta, binCount);
+            addCount((long) delta, binCount);
         return val;
     }
-
 
 
     /**
@@ -2451,14 +2501,14 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
      * short and simple, and must not attempt to update any other
      * mappings of this Map.
      *
-     * @param key key with which the specified value is to be associated
-     * @param value the value to use if absent
+     * @param key               key with which the specified value is to be associated
+     * @param value             the value to use if absent
      * @param remappingFunction the function to recompute a value if present
      * @return the new value associated with the specified key, or null if none
      * @throws NullPointerException if the specified key or the
-     *         remappingFunction is null
-     * @throws RuntimeException or Error if the remappingFunction does so,
-     *         in which case the mapping is unchanged
+     *                              remappingFunction is null
+     * @throws RuntimeException     or Error if the remappingFunction does so,
+     *                              in which case the mapping is unchanged
      */
     public V merge(K key, V value, BiFunction<? super V, ? super V, ? extends V> remappingFunction) {
         if (key == null || value == null || remappingFunction == null)
@@ -2467,25 +2517,25 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
         V val = null;
         int delta = 0;
         int binCount = 0;
-        for (MyConcurrentHashMap.Node<K,V>[] tab = table;;) {
-            MyConcurrentHashMap.Node<K,V> f; int n, i, fh;
+        for (MyConcurrentHashMap.Node<K, V>[] tab = table; ; ) {
+            MyConcurrentHashMap.Node<K, V> f;
+            int n, i, fh;
             if (tab == null || (n = tab.length) == 0)
                 tab = initTable();
             else if ((f = tabAt(tab, i = (n - 1) & h)) == null) {
-                if (casTabAt(tab, i, null, new MyConcurrentHashMap.Node<K,V>(h, key, value, null))) {
+                if (casTabAt(tab, i, null, new MyConcurrentHashMap.Node<K, V>(h, key, value, null))) {
                     delta = 1;
                     val = value;
                     break;
                 }
-            }
-            else if ((fh = f.hash) == MOVED)
+            } else if ((fh = f.hash) == MOVED)
                 tab = helpTransfer(tab, f);
             else {
                 synchronized (f) {
                     if (tabAt(tab, i) == f) {
                         if (fh >= 0) {
                             binCount = 1;
-                            for (MyConcurrentHashMap.Node<K,V> e = f, pred = null;; ++binCount) {
+                            for (MyConcurrentHashMap.Node<K, V> e = f, pred = null; ; ++binCount) {
                                 K ek;
                                 if (e.hash == h &&
                                         ((ek = e.key) == key ||
@@ -2495,7 +2545,7 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
                                         e.val = val;
                                     else {
                                         delta = -1;
-                                        MyConcurrentHashMap.Node<K,V> en = e.next;
+                                        MyConcurrentHashMap.Node<K, V> en = e.next;
                                         if (pred != null)
                                             pred.next = en;
                                         else
@@ -2508,16 +2558,15 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
                                     delta = 1;
                                     val = value;
                                     pred.next =
-                                            new MyConcurrentHashMap.Node<K,V>(h, key, val, null);
+                                            new MyConcurrentHashMap.Node<K, V>(h, key, val, null);
                                     break;
                                 }
                             }
-                        }
-                        else if (f instanceof MyConcurrentHashMap.TreeBin) {
+                        } else if (f instanceof MyConcurrentHashMap.TreeBin) {
                             binCount = 2;
-                            MyConcurrentHashMap.TreeBin<K,V> t = (MyConcurrentHashMap.TreeBin<K,V>)f;
-                            MyConcurrentHashMap.TreeNode<K,V> r = t.root;
-                            MyConcurrentHashMap.TreeNode<K,V> p = (r == null) ? null :
+                            MyConcurrentHashMap.TreeBin<K, V> t = (MyConcurrentHashMap.TreeBin<K, V>) f;
+                            MyConcurrentHashMap.TreeNode<K, V> r = t.root;
+                            MyConcurrentHashMap.TreeNode<K, V> p = (r == null) ? null :
                                     r.findTreeNode(h, key, null);
                             val = (p == null) ? value :
                                     remappingFunction.apply(p.val, value);
@@ -2528,8 +2577,7 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
                                     delta = 1;
                                     t.putTreeVal(h, key, val);
                                 }
-                            }
-                            else if (p != null) {
+                            } else if (p != null) {
                                 delta = -1;
                                 if (t.removeTreeNode(p))
                                     setTabAt(tab, i, untreeify(t.first));
@@ -2545,7 +2593,7 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
             }
         }
         if (delta != 0)
-            addCount((long)delta, binCount);
+            addCount((long) delta, binCount);
         return val;
     }
 
@@ -2594,10 +2642,12 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
                     (ck.getDeclaredField("value"));
             Class<?> ak = MyConcurrentHashMap.Node[].class;
             ABASE = U.arrayBaseOffset(ak);
+            System.out.println("========ABASE==" + ABASE);
             int scale = U.arrayIndexScale(ak);
             if ((scale & (scale - 1)) != 0)
                 throw new Error("data type scale not a power of two");
             ASHIFT = 31 - Integer.numberOfLeadingZeros(scale);
+            System.out.println("========ASHIFT==" + ASHIFT);
         } catch (Exception e) {
             throw new Error(e);
         }
@@ -2621,8 +2671,8 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
     public int size() {
         long n = sumCount();
         return ((n < 0L) ? 0 :
-                (n > (long)Integer.MAX_VALUE) ? Integer.MAX_VALUE :
-                        (int)n);
+                (n > (long) Integer.MAX_VALUE) ? Integer.MAX_VALUE :
+                        (int) n);
     }
 
     /* ---------------- Table Initialization and Resizing -------------- */
@@ -2634,7 +2684,6 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
     static final int resizeStamp(int n) {
         return Integer.numberOfLeadingZeros(n) | (1 << (RESIZE_STAMP_BITS - 1));
     }
-
 
 
     /**
@@ -2669,15 +2718,15 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
      * {@code null}.  (There can be at most one such mapping.)
      *
      * @throws NullPointerException if the specified key is null
-     *
-     * 首先，计算出记录的key的hashCode，然后通过使用(hashCode & (length - 1))   的计算方法来获得该记录在table中的index，
-     * 然后判断该位置上是否为null，如果为null，则返回null，否则，如果该位置上的第一个元素（链表头节点或者红黑树的根节点）
-     * 与我们先要查找的记录匹配，则直接返回这个节点的值，否则，如果该节点的hashCode小于0，则说明该位置上是一颗红黑树，
-     * 至于为什么hashCode值小于0就代表是一颗红黑树而不是链表了，这就要看下面的代码了：
+     *                              <p>
+     *                              首先，计算出记录的key的hashCode，然后通过使用(hashCode & (length - 1))   的计算方法来获得该记录在table中的index，
+     *                              然后判断该位置上是否为null，如果为null，则返回null，否则，如果该位置上的第一个元素（链表头节点或者红黑树的根节点）
+     *                              与我们先要查找的记录匹配，则直接返回这个节点的值，否则，如果该节点的hashCode小于0，则说明该位置上是一颗红黑树，
+     *                              至于为什么hashCode值小于0就代表是一颗红黑树而不是链表了，这就要看下面的代码了：
      */
     public V get(Object key) {
-        MyConcurrentHashMap.Node<K,V>[] tab;
-        MyConcurrentHashMap.Node<K,V> e, p;
+        MyConcurrentHashMap.Node<K, V>[] tab;
+        MyConcurrentHashMap.Node<K, V> e, p;
         int n, eh;
         K ek;
         int h = spread(key.hashCode());
@@ -2686,8 +2735,7 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
             if ((eh = e.hash) == h) {
                 if ((ek = e.key) == key || (ek != null && key.equals(ek)))
                     return e.val;
-            }
-            else if (eh < 0)
+            } else if (eh < 0)
                 return (p = e.find(h, key)) != null ? p.val : null;
             while ((e = e.next) != null) {
                 if (e.hash == h &&
@@ -2699,13 +2747,15 @@ public class MyConcurrentHashMap<K, V> extends AbstractMap<K, V> implements Conc
     }
 
 
-
-
     public static void main(String[] args) {
-        System.out.println(resizeStamp(20));
-        System.out.println(Integer.numberOfLeadingZeros(20) );
-        System.out.println(1 << (RESIZE_STAMP_BITS - 1));
-        System.out.println(27 |32768 );
+        MyConcurrentHashMap<String,String> map = new MyConcurrentHashMap();
+        map.put("111","222");
+
+        String a = map.get("111");
+        System.out.println(a );
+
+        System.out.println(resizeStamp(1));
+
     }
 
 
