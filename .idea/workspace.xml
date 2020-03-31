@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e7f83738-60d4-4332-b6aa-2ba8c2d255d1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/test/demo6_semaphore/current/TestN.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/test/demo2_synchronized/SynchroDemo01.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/test/demo2_synchronized/SynchroDemo01.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/test/demo6_semaphore/MyConcurrentHashMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/test/demo6_semaphore/MyConcurrentHashMap.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -218,7 +218,17 @@
       <workItem from="1584966988952" duration="2024000" />
       <workItem from="1585014536603" duration="4202000" />
       <workItem from="1585020890993" duration="1739000" />
-      <workItem from="1585045423862" duration="499000" />
+      <workItem from="1585045423862" duration="534000" />
+      <workItem from="1585111457492" duration="1476000" />
+      <workItem from="1585143907373" duration="3259000" />
+      <workItem from="1585185721406" duration="6000" />
+      <workItem from="1585199949595" duration="647000" />
+      <workItem from="1585327731261" duration="1000" />
+      <workItem from="1585329307761" duration="1000" />
+      <workItem from="1585329315069" duration="1000" />
+      <workItem from="1585542983478" duration="376000" />
+      <workItem from="1585564273004" duration="106000" />
+      <workItem from="1585635094733" duration="982000" />
     </task>
     <servers />
   </component>
