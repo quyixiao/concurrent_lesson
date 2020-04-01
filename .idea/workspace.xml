@@ -2,17 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e7f83738-60d4-4332-b6aa-2ba8c2d255d1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/test/demo7_pool/CachedPool.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/test/demo7_pool/Demo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/test/demo7_pool/FixedPoolDemo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/test/demo7_pool/FixedThreadPoolDemo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/test/demo7_pool/ScheduledDemo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/test/demo7_pool/SingleThreadDemo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/test/demo7_pool/StateDemo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/test/demo7_pool/TaskDemo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/test/demo7_pool/WorkThread.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/test/demo2_synchronized/SynchroDemo01.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/test/demo2_synchronized/SynchroDemo01.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/test/demo7_pool/FixedPoolDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/test/demo7_pool/FixedPoolDemo.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -241,6 +232,7 @@
       <workItem from="1585705823080" duration="1000" />
       <workItem from="1585716029229" duration="642000" />
       <workItem from="1585723296774" duration="13000" />
+      <workItem from="1585738516764" duration="176000" />
     </task>
     <servers />
   </component>

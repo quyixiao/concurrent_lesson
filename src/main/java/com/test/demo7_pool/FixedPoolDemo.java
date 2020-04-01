@@ -17,8 +17,12 @@ public class FixedPoolDemo {
         }
         //关闭
         pool.shutdown();//shutdown
+        // 注意除非首先调用shutdown或shutdownNow，否则isTerminated永不为true
+        // 若关闭后所有任务都已完成，则返回true。
         while (!pool.isTerminated()){
+
         }
+
         System.out.println("finished");
     }
 
