@@ -30,6 +30,8 @@ public class SynchroDemo01 {
     }
 
     //代码块1（CLASS类）
+    // 创建一个新的线程，可固定的线程数的线程数据，可调度的线程，常用的4个线程，
+    // 
     public void accessResources4() {
         synchronized (SynchroDemo01.class) {//ClassLoader  class  ——-》堆   Class   所有的对象
             //有Class对象的所有的对象都共同使用这一个锁如果这个问题是没有问题的。
